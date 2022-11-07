@@ -21,23 +21,99 @@
   justify-content: space-between;
 }
 
+.editableContainer {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.editableContainer > * {
+  flex-grow: 1;
+}
+
 .editableContainer label {
-  display: block;
   padding: 0px 0px 8px 0px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 12px;
 }
 
 .leftPane {
   flex-grow: 2;
+  padding: 10px 60px 0px 0px;
 }
 
 .editables {
   display: flex;
   flex-direction: row;
   gap: 20px;
-  padding: 10px 0px;
+  padding: 10px 0px 20px 0px;
 }
 
 .rightPane {
   flex-grow: 1;
   padding: 10px 0px;
+}
+
+.prompt {
+  padding: 20px 0px 0px 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 200px;
+}
+
+.crossMark {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  display: flex;
+  visibility: hidden;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--red4);
+  border-radius: 50%;
+  color: var(--red11);
+  flex-shrink: 0;
+}
+
+.plus {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--green4);
+  border-radius: 50%;
+  color: var(--green11);
+  flex-shrink: 0;
+}
+
+.prompt:hover .crossMark {
+  visibility: unset;
+}
+
+.selectContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  padding: 0px 0px 10px 0px;
+}
+
+.newListContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+
+.newListInput {
+  padding: 5px 10px;
+}
+
+.visibilityHidden {
+  visibility: hidden;
 }

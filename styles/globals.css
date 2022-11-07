@@ -1,3 +1,6 @@
+@import "@radix-ui/colors/red.css";
+@import "@radix-ui/colors/green.css";
+
 @font-face {
   font-family: 'Inter';
   font-style: normal;
@@ -9,6 +12,7 @@
 :root {
   --font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  --select-size: 16px;
 }
 
 html,
@@ -28,7 +32,14 @@ a {
 textarea {
   padding: 10px 5px;
   width: 200px;
+  max-width: 500px;
   height: 120px;
+  max-height: 120px;
+}
+
+select {
+  font-size: var(--select-size);
+  padding: 3px;
 }
 
 * {
@@ -37,4 +48,15 @@ textarea {
 
 ::placeholder, textarea {
   font-family: var(--font-family);
+}
+
+input[type=submit] {
+  background-color: var(--green8);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
 }
