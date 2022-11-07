@@ -1,9 +1,23 @@
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900; /* Range of weights supported */
+  font-display: optional;
+  src: url(/inter-var-latin.woff2) format('woff2');
+}
+
+:root {
+  --font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: var(--font-family);
+  width: 100vw;
+  height: 100vh;
 }
 
 a {
@@ -11,16 +25,16 @@ a {
   text-decoration: none;
 }
 
+textarea {
+  padding: 10px 5px;
+  width: 200px;
+  height: 120px;
+}
+
 * {
   box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
+::placeholder, textarea {
+  font-family: var(--font-family);
 }
