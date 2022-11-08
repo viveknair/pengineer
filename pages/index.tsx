@@ -4,32 +4,30 @@ import { useEffect, useRef, useState } from "react";
 import { v4 as uuid4 } from "uuid";
 import {
   PromptStoreProvider,
+  useLists,
+  useListWriter,
   usePrompts,
   usePromptWriter,
 } from "../library/context/PromptStoreContext";
+import { DEFAULT_LIST } from "../library/store/PromptStore";
 import styles from "../styles/Home.module.css";
-
-const DEFAULT_LIST = "Default List";
 
 function Home() {
   const prompts = usePrompts();
   const [list, setList] = useState(DEFAULT_LIST);
   const [showNewListPrompt, setShowNewListPrompt] = useState(false);
-  const allListsSet = new Set(
-    prompts.map((prompt) => {
-      return prompt.list;
-    })
-  );
 
-  allListsSet.add(list);
+  const allLists = useLists();
 
-  const allLists = Array.from(allListsSet);
-  const writer = usePromptWriter();
+  const promptWriter = usePromptWriter();
+  const listWriter = useListWriter();
   const promptsForList = prompts.filter((prompt) => prompt.list === list);
   const newListInputRef = useRef<HTMLInputElement>(null);
 
   const [prompt, setPrompt] = useState("");
   const [completion, setCompletion] = useState("");
+
+  const [newListName, setNewListName] = useState("");
 
   return (
     <div className={styles.container}>
@@ -53,7 +51,7 @@ function Home() {
                 return;
               }
 
-              writer.save({
+              promptWriter.save({
                 uuid,
                 list,
                 prompt,
@@ -97,11 +95,17 @@ function Home() {
 
         <div className={styles.rightPane}>
           <div className={styles.selectContainer}>
-            <select className={styles.select} onChange={(e) => {}}>
-              {allLists.map((list) => {
+            <select
+              value={list}
+              className={styles.select}
+              onChange={(e) => {
+                setList(e.target.value);
+              }}
+            >
+              {allLists.map(({ name }) => {
                 return (
-                  <option key={list} value={list}>
-                    {list}
+                  <option key={name} value={name}>
+                    {name}
                   </option>
                 );
               })}
@@ -114,8 +118,10 @@ function Home() {
                   const newState = !showNewListPrompt;
                   setShowNewListPrompt(newState);
                   if (newState && newListInputRef.current) {
-                    console.log("focusing");
-                    newListInputRef.current.focus();
+                    // Hack, allows enough time to refocus
+                    setTimeout(() => {
+                      newListInputRef.current?.focus();
+                    }, 0);
                   }
                 }}
               >
@@ -130,11 +136,32 @@ function Home() {
               .join(" ")}
           >
             <input
+              value={newListName}
+              onChange={(e) => {
+                setNewListName(e.target.value);
+              }}
               ref={newListInputRef}
               placeholder="Extra fine-tuned list"
               className={styles.newListInput}
             />
-            <div className={styles.check}>
+
+            <div
+              className={styles.check}
+              onClick={() => {
+                if (!newListName) {
+                  return;
+                }
+
+                listWriter
+                  .save({
+                    name: newListName,
+                  })
+                  ?.then(() => {
+                    setNewListName("");
+                    setList(newListName);
+                  });
+              }}
+            >
               <CheckIcon />
             </div>
           </div>

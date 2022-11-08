@@ -53,6 +53,7 @@
 .rightPane {
   flex-grow: 1;
   padding: 10px 0px;
+  width: 20%;
 }
 
 .prompt {
@@ -120,13 +121,15 @@
   padding: 5px 10px;
 }
 
-.visibilityHidden {
-  visibility: hidden;
-}
-
 .inputFormWrapper {
   display: flex;
   flex-direction: row;
   gap: 20px;
   align-items: center;
 }
+
+.visibilityHidden {
+  display: none !important;
+}
+
+
