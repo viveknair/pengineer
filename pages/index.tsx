@@ -1,6 +1,6 @@
-import { Cross2Icon, PlusIcon } from "@radix-ui/react-icons";
+import { CheckIcon, Cross2Icon, PlusIcon } from "@radix-ui/react-icons";
 import Head from "next/head";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { v4 as uuid4 } from "uuid";
 import {
   PromptStoreProvider,
@@ -24,12 +24,12 @@ function Home() {
   allListsSet.add(list);
 
   const allLists = Array.from(allListsSet);
-
   const writer = usePromptWriter();
-
   const promptsForList = prompts.filter((prompt) => prompt.list === list);
-
   const newListInputRef = useRef<HTMLInputElement>(null);
+
+  const [prompt, setPrompt] = useState("");
+  const [completion, setCompletion] = useState("");
 
   return (
     <div className={styles.container}>
@@ -47,12 +47,7 @@ function Home() {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              const formElement = e.target as HTMLFormElement;
-              const formData = new FormData(formElement);
-
               const uuid = uuid4();
-              const prompt = formData.get("prompt")?.toString();
-              const completion = formData.get("completion")?.toString();
 
               if (!prompt || !completion) {
                 return;
@@ -64,13 +59,19 @@ function Home() {
                 prompt,
                 completion,
               });
-              formElement.reset();
+
+              setPrompt("");
+              setCompletion("");
             }}
           >
             <div className={styles.editables}>
               <div className={styles.editableContainer}>
                 <label htmlFor="prompt">Prompt</label>
                 <textarea
+                  value={prompt}
+                  onChange={(e) => {
+                    setPrompt(e.target.value);
+                  }}
                   placeholder="What is the capital of Italy?"
                   name="prompt"
                 />
@@ -78,7 +79,14 @@ function Home() {
 
               <div className={styles.editableContainer}>
                 <label htmlFor="completion">Completion</label>
-                <textarea placeholder="Rome" name="completion" />
+                <textarea
+                  value={completion}
+                  onChange={(e) => {
+                    setCompletion(e.target.value);
+                  }}
+                  placeholder="Rome"
+                  name="completion"
+                />
               </div>
             </div>
             <div>
@@ -106,20 +114,28 @@ function Home() {
                   const newState = !showNewListPrompt;
                   setShowNewListPrompt(newState);
                   if (newState && newListInputRef.current) {
+                    console.log("focusing");
                     newListInputRef.current.focus();
                   }
                 }}
               >
                 <PlusIcon />
               </div>
+            </div>
+          </div>
 
-              <input
-                ref={newListInputRef}
-                placeholder="Extra fine-tuned list"
-                className={[styles.newListInput]
-                  .concat(showNewListPrompt ? styles.visibilityHidden : [])
-                  .join(" ")}
-              />
+          <div
+            className={[styles.inputFormWrapper]
+              .concat(showNewListPrompt ? [] : styles.visibilityHidden)
+              .join(" ")}
+          >
+            <input
+              ref={newListInputRef}
+              placeholder="Extra fine-tuned list"
+              className={styles.newListInput}
+            />
+            <div className={styles.check}>
+              <CheckIcon />
             </div>
           </div>
 
@@ -156,6 +172,20 @@ function Prompt({ prompt, uuid }: { prompt: string; uuid: string }) {
 }
 
 export default function HomeWrapper() {
+  useEffect(() => {
+    console.log(`
+ _|                                          
+ _|_|_|      _|_|    _|_|_|      _|_|_|      _|_|_|      _|_|      _|_|    _|  _|_|  
+ _|    _|  _|_|_|_|  _|    _|  _|    _|  _|  _|    _|  _|_|_|_|  _|_|_|_|  _|_|      
+ _|    _|  _|        _|    _|  _|    _|  _|  _|    _|  _|        _|        _|        
+ _|_|_|      _|_|_|  _|    _|    _|_|_|  _|  _|    _|    _|_|_|    _|_|_|  _|        
+ _|                                  _|                                              
+ _|                              _|_|                                                
+
+~ by Vivek Nair (http://twitter.com/virtuallyvivek)
+    `);
+  }, []);
+
   return (
     <PromptStoreProvider>
       <Home />

@@ -1,5 +1,6 @@
 @import "@radix-ui/colors/red.css";
 @import "@radix-ui/colors/green.css";
+@import "@radix-ui/colors/blue.css";
 
 @font-face {
   font-family: 'Inter';
@@ -31,8 +32,6 @@ a {
 
 textarea {
   padding: 10px 5px;
-  width: 200px;
-  max-width: 500px;
   height: 120px;
   max-height: 120px;
 }

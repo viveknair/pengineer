@@ -27,8 +27,6 @@ export const PromptStoreProvider: FC<React.PropsWithChildren<unknown>> = ({
     };
   }, []);
 
-  console.log("prompt store", promptStore);
-
   return (
     <PromptStoreContext.Provider value={promptStore}>
       {children}
@@ -41,7 +39,6 @@ export const usePromptWriter = () => {
 
   const save = useCallback(
     (newPrompt: PromptData) => {
-      console.log("saving", newPrompt, store);
       if (!store) {
         return null;
       }

@@ -91,6 +91,19 @@
   flex-shrink: 0;
 }
 
+.check {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--blue4);
+  border-radius: 50%;
+  color: var(--blue11);
+  flex-shrink: 0; 
+}
+
 .prompt:hover .crossMark {
   visibility: unset;
 }
@@ -103,17 +116,17 @@
   padding: 0px 0px 10px 0px;
 }
 
-.newListContainer {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  align-items: center;
-}
-
 .newListInput {
   padding: 5px 10px;
 }
 
 .visibilityHidden {
   visibility: hidden;
+}
+
+.inputFormWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
 }

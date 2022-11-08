@@ -39,8 +39,6 @@ class PromptStore {
       return this.dbInformation;
     }
 
-    console.log("no db information");
-
     const info: IDBInformation = {};
 
     return new Promise<IDBInformation>((resolve, reject) => {
@@ -112,7 +110,6 @@ class PromptStore {
 
   async savePrompt(promptData: PromptData) {
     const { instance } = await this.getIDBInformation();
-    console.log("testing", instance);
     if (!instance) {
       return;
     }
