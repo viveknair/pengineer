@@ -2,11 +2,17 @@ import {
   CheckIcon,
   Cross2Icon,
   DownloadIcon,
+  Pencil2Icon,
   PlusIcon,
 } from "@radix-ui/react-icons";
 import Head from "next/head";
 import { useEffect, useRef, useState } from "react";
 import { v4 as uuid4 } from "uuid";
+import {
+  EditablesProvider,
+  useEditablesContext,
+  useEditablesDispatchContext,
+} from "../library/context/EditablesContext";
 import {
   PromptStoreProvider,
   useLists,
@@ -30,8 +36,8 @@ function Home() {
   const promptsForList = prompts.filter((prompt) => prompt.list === list);
   const newListInputRef = useRef<HTMLInputElement>(null);
 
-  const [prompt, setPrompt] = useState("");
-  const [completion, setCompletion] = useState("");
+  const { prompt, completion } = useEditablesContext();
+  const dispatch = useEditablesDispatchContext();
 
   const [newListName, setNewListName] = useState("");
 
@@ -64,8 +70,10 @@ function Home() {
                 completion,
               });
 
-              setPrompt("");
-              setCompletion("");
+              dispatch({
+                prompt: "",
+                completion: "",
+              });
             }}
           >
             <div className={styles.editables}>
@@ -74,7 +82,10 @@ function Home() {
                 <textarea
                   value={prompt}
                   onChange={(e) => {
-                    setPrompt(e.target.value);
+                    dispatch({
+                      prompt: e.target.value,
+                      completion,
+                    });
                   }}
                   placeholder="What is the capital of Italy?"
                   name="prompt"
@@ -86,7 +97,10 @@ function Home() {
                 <textarea
                   value={completion}
                   onChange={(e) => {
-                    setCompletion(e.target.value);
+                    dispatch({
+                      prompt,
+                      completion: e.target.value,
+                    });
                   }}
                   placeholder="Rome"
                   name="completion"
@@ -194,7 +208,16 @@ function Prompt({ prompt, uuid }: { prompt: string; uuid: string }) {
   return (
     <div className={styles.prompt}>
       <div>{prompt}</div>
-      <div>
+      <div className={styles.promptInteractors}>
+        <div
+          className={styles.crossMark}
+          onClick={() => {
+            writer.delete(uuid);
+          }}
+        >
+          <Pencil2Icon />
+        </div>
+
         <div
           className={styles.crossMark}
           onClick={() => {
@@ -224,8 +247,10 @@ export default function HomeWrapper() {
   }, []);
 
   return (
-    <PromptStoreProvider>
-      <Home />
-    </PromptStoreProvider>
+    <EditablesProvider>
+      <PromptStoreProvider>
+        <Home />
+      </PromptStoreProvider>
+    </EditablesProvider>
   );
 }

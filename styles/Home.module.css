@@ -65,6 +65,13 @@
   width: 200px;
 }
 
+.promptInteractors {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+
 .crossMark {
   width: 25px;
   height: 25px;

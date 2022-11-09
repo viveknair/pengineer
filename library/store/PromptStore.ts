@@ -52,7 +52,6 @@ class PromptStore {
       const dbRequest = indexedDB.open(INDEXED_DB_NAME, INDEXED_DB_VERSION);
 
       dbRequest.addEventListener("upgradeneeded", () => {
-        console.log("upgrade needed fired");
         const dbInstance = dbRequest.result;
 
         let promptObjectStore: IDBObjectStore | null = null;
@@ -71,7 +70,6 @@ class PromptStore {
         let listObjectStore: IDBObjectStore | null = null;
 
         if (!dbInstance.objectStoreNames.contains(INDEXED_DB_LISTS_STORE)) {
-          console.log("creating list object store");
           listObjectStore = dbInstance.createObjectStore(
             INDEXED_DB_LISTS_STORE,
             {
