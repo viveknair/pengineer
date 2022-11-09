@@ -77,7 +77,6 @@
   height: 25px;
   cursor: pointer;
   display: flex;
-  visibility: hidden;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
@@ -87,6 +86,7 @@
 .crossMark {
   background-color: var(--red4);
   color: var(--red11);
+  visibility: hidden;
 }
 
 .plus {
@@ -102,11 +102,13 @@
 .check {
   background-color: var(--blue4);
   color: var(--blue11);
+  visibility: hidden;
 }
 
 .pencil {
   background-color: var(--yellow4);
   color: var(--yellow11);
+  visibility: hidden;
 }
 
 .prompt:hover .crossMark, .prompt:hover .pencil {
@@ -142,4 +144,7 @@
   display: none !important;
 }
 
-
+.noPromptYet {
+  color: var(--slate9);
+  font-size: 15px;
+}

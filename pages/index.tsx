@@ -3,7 +3,6 @@ import {
   Cross2Icon,
   DownloadIcon,
   Pencil1Icon,
-  Pencil2Icon,
   PlusIcon,
 } from "@radix-ui/react-icons";
 import Head from "next/head";
@@ -42,6 +41,8 @@ function Home() {
 
   const [newListName, setNewListName] = useState("");
 
+  const promptTextAreaRef = useRef<HTMLTextAreaElement>(null);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -75,12 +76,17 @@ function Home() {
                 prompt: "",
                 completion: "",
               });
+
+              if (promptTextAreaRef.current) {
+                promptTextAreaRef.current.focus();
+              }
             }}
           >
             <div className={styles.editables}>
               <div className={styles.editableContainer}>
                 <label htmlFor="prompt">Prompt</label>
                 <textarea
+                  ref={promptTextAreaRef}
                   value={prompt}
                   onChange={(e) => {
                     dispatch({
@@ -192,16 +198,20 @@ function Home() {
           </div>
 
           <div>
-            {promptsForList.map(({ prompt, uuid, completion }) => {
-              return (
-                <Prompt
-                  key={uuid}
-                  uuid={uuid}
-                  prompt={prompt}
-                  completion={completion}
-                />
-              );
-            })}
+            {promptsForList.length > 0 ? (
+              promptsForList.map(({ prompt, uuid, completion }) => {
+                return (
+                  <Prompt
+                    key={uuid}
+                    uuid={uuid}
+                    prompt={prompt}
+                    completion={completion}
+                  />
+                );
+              })
+            ) : (
+              <div className={styles.noPromptYet}>No prompts yet</div>
+            )}
           </div>
         </div>
       </main>
