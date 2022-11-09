@@ -1,4 +1,9 @@
-import { CheckIcon, Cross2Icon, PlusIcon } from "@radix-ui/react-icons";
+import {
+  CheckIcon,
+  Cross2Icon,
+  DownloadIcon,
+  PlusIcon,
+} from "@radix-ui/react-icons";
 import Head from "next/head";
 import { useEffect, useRef, useState } from "react";
 import { v4 as uuid4 } from "uuid";
@@ -21,6 +26,7 @@ function Home() {
 
   const promptWriter = usePromptWriter();
   const listWriter = useListWriter();
+
   const promptsForList = prompts.filter((prompt) => prompt.list === list);
   const newListInputRef = useRef<HTMLInputElement>(null);
 
@@ -112,6 +118,10 @@ function Home() {
             </select>
 
             <div className={styles.newListContainer}>
+              <div className={styles.download}>
+                <DownloadIcon />
+              </div>
+
               <div
                 className={styles.plus}
                 onClick={() => {

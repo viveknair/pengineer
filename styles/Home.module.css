@@ -92,6 +92,19 @@
   flex-shrink: 0;
 }
 
+.download {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--plum4);
+  border-radius: 50%;
+  color: var(--plum11);
+  flex-shrink: 0;
+}
+
 .check {
   width: 25px;
   height: 25px;
@@ -119,6 +132,12 @@
 
 .newListInput {
   padding: 5px 10px;
+}
+
+.newListContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
 }
 
 .inputFormWrapper {
