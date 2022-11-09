@@ -21,6 +21,12 @@
   justify-content: space-between;
 }
 
+@media only screen and (max-width: 800px) {
+  .main {
+    flex-direction: column;
+  }
+}
+
 .editableContainer {
   flex-grow: 1;
   display: flex;

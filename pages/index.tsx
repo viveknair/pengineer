@@ -21,6 +21,7 @@ import {
   usePromptWriter,
 } from "../library/context/PromptStoreContext";
 import { DEFAULT_LIST } from "../library/store/PromptStore";
+import { download } from "../library/utils";
 import styles from "../styles/Home.module.css";
 
 function Home() {
@@ -139,7 +140,16 @@ function Home() {
             </select>
 
             <div className={styles.newListContainer}>
-              <div className={[styles.iconWrapper, styles.download].join(" ")}>
+              <div
+                className={[styles.iconWrapper, styles.download].join(" ")}
+                onClick={() => {
+                  const jsonValues = promptsForList.map((prompt) => {
+                    return JSON.stringify(prompt);
+                  });
+                  const jsonlValue = jsonValues.join("\n");
+                  download(`dataset-${Date.now()}.jsonl`, jsonlValue);
+                }}
+              >
                 <DownloadIcon />
               </div>
 
