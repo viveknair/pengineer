@@ -72,7 +72,7 @@
   gap: 5px;
 }
 
-.crossMark {
+.iconWrapper {
   width: 25px;
   height: 25px;
   cursor: pointer;
@@ -80,52 +80,36 @@
   visibility: hidden;
   align-items: center;
   justify-content: center;
-  background-color: var(--red4);
   border-radius: 50%;
-  color: var(--red11);
   flex-shrink: 0;
+}
+
+.crossMark {
+  background-color: var(--red4);
+  color: var(--red11);
 }
 
 .plus {
-  width: 25px;
-  height: 25px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background-color: var(--green4);
-  border-radius: 50%;
   color: var(--green11);
-  flex-shrink: 0;
 }
 
 .download {
-  width: 25px;
-  height: 25px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background-color: var(--plum4);
-  border-radius: 50%;
   color: var(--plum11);
-  flex-shrink: 0;
 }
 
 .check {
-  width: 25px;
-  height: 25px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background-color: var(--blue4);
-  border-radius: 50%;
   color: var(--blue11);
-  flex-shrink: 0; 
 }
 
-.prompt:hover .crossMark {
+.pencil {
+  background-color: var(--yellow4);
+  color: var(--yellow11);
+}
+
+.prompt:hover .crossMark, .prompt:hover .pencil {
   visibility: unset;
 }
 

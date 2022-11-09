@@ -2,6 +2,7 @@ import {
   CheckIcon,
   Cross2Icon,
   DownloadIcon,
+  Pencil1Icon,
   Pencil2Icon,
   PlusIcon,
 } from "@radix-ui/react-icons";
@@ -132,12 +133,12 @@ function Home() {
             </select>
 
             <div className={styles.newListContainer}>
-              <div className={styles.download}>
+              <div className={[styles.iconWrapper, styles.download].join(" ")}>
                 <DownloadIcon />
               </div>
 
               <div
-                className={styles.plus}
+                className={[styles.iconWrapper, styles.plus].join(" ")}
                 onClick={() => {
                   const newState = !showNewListPrompt;
                   setShowNewListPrompt(newState);
@@ -170,7 +171,7 @@ function Home() {
             />
 
             <div
-              className={styles.check}
+              className={[styles.iconWrapper, styles.check].join(" ")}
               onClick={() => {
                 if (!newListName) {
                   return;
@@ -191,8 +192,15 @@ function Home() {
           </div>
 
           <div>
-            {promptsForList.map(({ prompt, uuid }) => {
-              return <Prompt key={uuid} uuid={uuid} prompt={prompt} />;
+            {promptsForList.map(({ prompt, uuid, completion }) => {
+              return (
+                <Prompt
+                  key={uuid}
+                  uuid={uuid}
+                  prompt={prompt}
+                  completion={completion}
+                />
+              );
             })}
           </div>
         </div>
@@ -203,23 +211,38 @@ function Home() {
   );
 }
 
-function Prompt({ prompt, uuid }: { prompt: string; uuid: string }) {
+function Prompt({
+  prompt,
+  uuid,
+  completion,
+}: {
+  prompt: string;
+  uuid: string;
+  completion: string;
+}) {
   const writer = usePromptWriter();
+  const dispatch = useEditablesDispatchContext();
+
   return (
     <div className={styles.prompt}>
       <div>{prompt}</div>
       <div className={styles.promptInteractors}>
         <div
-          className={styles.crossMark}
+          className={[styles.iconWrapper, styles.pencil].join(" ")}
           onClick={() => {
+            dispatch({
+              prompt,
+              completion,
+            });
+
             writer.delete(uuid);
           }}
         >
-          <Pencil2Icon />
+          <Pencil1Icon />
         </div>
 
         <div
-          className={styles.crossMark}
+          className={[styles.iconWrapper, styles.crossMark].join(" ")}
           onClick={() => {
             writer.delete(uuid);
           }}
