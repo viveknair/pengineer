@@ -141,8 +141,12 @@ function Home() {
 
             <div className={styles.newListContainer}>
               <div
+                tabIndex={0}
                 className={[styles.iconWrapper, styles.download].join(" ")}
                 onClick={() => {
+                  if (promptsForList.length === 0) {
+                    return;
+                  }
                   const jsonValues = promptsForList.map((prompt) => {
                     return JSON.stringify(prompt);
                   });
@@ -154,6 +158,7 @@ function Home() {
               </div>
 
               <div
+                tabIndex={0}
                 className={[styles.iconWrapper, styles.plus].join(" ")}
                 onClick={() => {
                   const newState = !showNewListPrompt;
@@ -187,6 +192,7 @@ function Home() {
             />
 
             <div
+              tabIndex={0}
               className={[styles.iconWrapper, styles.check].join(" ")}
               onClick={() => {
                 if (!newListName) {
@@ -248,6 +254,7 @@ function Prompt({
       <div>{prompt}</div>
       <div className={styles.promptInteractors}>
         <div
+          tabIndex={0}
           className={[styles.iconWrapper, styles.pencil].join(" ")}
           onClick={() => {
             dispatch({
@@ -262,6 +269,7 @@ function Prompt({
         </div>
 
         <div
+          tabIndex={0}
           className={[styles.iconWrapper, styles.crossMark].join(" ")}
           onClick={() => {
             writer.delete(uuid);
