@@ -154,3 +154,47 @@
   font-size: 13px;
   padding: 20px 0px 0px 3px;
 }
+
+.vivekSignature {
+  /* Hack: ensure that 'Built with' text appears directly above the fading signature */
+  position: absolute;
+  bottom: 0px;
+
+  width: 120px;
+  stroke-dashoffset: 1;
+  stroke-dasharray: 1;
+  left: -8px;
+}
+
+.footer {
+  position: relative;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.footer[data-animate='true'] .vivekSignature path {
+  animation: drawVivekSignature 0.8s linear forwards;
+}
+
+@keyframes drawVivekSignature {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.footerText {
+  opacity: 0;
+  z-index: 10;
+}
+
+.footer[data-animate='true'] .footerText {
+  animation: showFooter 1s ease-in forwards 3s;
+}
+
+@keyframes showFooter {
+  100% {
+    opacity: 1;
+  }
+}
