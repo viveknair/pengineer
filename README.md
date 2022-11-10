@@ -2,7 +2,7 @@
 Pengineer (prompt engineer) is a small NextJS application to help create prompts for OpenAI.
 
 ### Usage
-Add your prompt and its elated completion to the textareas. The prompt/completion pair saves to the selected list. There's a default list and you can create additional.
+Add your prompt and its related completion to the textareas. The prompt/completion pair saves to the selected list. There's a default list and you can create additional.
 
 ### Download format
 This application creates a [JSON Line](https://jsonlines.org/) formatted file that's compatible with how OpenAI fine-tunes models. More information on that [here](https://beta.openai.com/docs/guides/fine-tuning/prepare-training-data).
